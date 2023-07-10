@@ -9,6 +9,7 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
+
 const sess = {
     secret: process.env.SECRET,
     cookie: {},
@@ -18,7 +19,6 @@ const sess = {
         db: sequelize
     })
 };
-const port = process.env.PORT || 3001;
 
 app.use(session(sess));
 app.use(express.json());
@@ -29,5 +29,5 @@ app.set('view engine', 'handlebars');
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-    app.listen(PORT, () => console.log('Now listening'));
+    app.listen(PORT, () => console.log('Now listening on port ${PORT}!'));
 });
